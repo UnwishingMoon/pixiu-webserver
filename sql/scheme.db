@@ -1,0 +1,167 @@
+// Users able to login
+Table users {
+  US_COD int [pk, increment]
+  US_PASSWORD string
+  US_TWOFA_SECRET string // 2 Factor auth
+  US_EMAIL string // Email
+  US_DCREA timestamp // Creation date
+}
+
+// User groups
+Table groups {
+  GR_COD int [pk, increment]
+  GR_ID string // unique group id
+  GR_NAME string // Readable name description
+  GR_DESC string // Group description
+  GR_ENABLE bool // Group enabled
+}
+
+Table users_groups {
+  UG_USER int
+  UG_GROUP int
+}
+
+// Global settings
+Table settings {
+  ST_COD int [pk, increment]
+  ST_KEY string
+  ST_VAL string
+  ST_ENABLE bool
+}
+
+// Connect which users can see the domain group
+Table users_domain_groups {
+  UDMG_USER int // Users of the domain group
+  UDMG_DOMAIN int // Domain group
+}
+
+// Domain groups
+Table domain_groups {
+  DMG_COD int [pk, increment]
+  DMG_EMAIL string // Domain group email
+  DMG_DEFAULT_LANGUAGE int // Default language if not specified
+  DMG_CONSENT_EXPIRE int // Months after the contents will be asked againg
+  DMG_MASS_CONSENT bool // Consent is valid for all domains in this group
+
+  DMG_THEME int // Theme to use
+  DMG_POSITION string // Position of the window
+  DMG_LOGO_PATH string // Path to custom logo
+
+  DMG_BUTTONS string // ??
+  DMG_SHOW_PREFS bool // Show Preference button
+  DMG_SHOW_STATS bool // Show Statistics button
+  DMG_SHOW_MARK bool // Show marketing button
+
+  DMG_WIDGET bool // Show widget
+  DMG_WIDGET_POSITION bool // Widget position
+  DMG_WIDGET_THEME int // Widget Theme
+}
+
+// Domains
+Table domains {
+  DM_COD int [pk, increment]
+  DM_PATH string // Domain url
+  DM_FREQUENCY int // Days for the scan
+}
+
+// Theme settings
+Table themes {
+  TH_COD int [pk, increment]
+
+  TH_HTML_FILE string // Path to html file
+  TH_CSS_FILE string // Path to css file
+  TH_JS_FILE string // Path to javascript file
+}
+
+// Bots connected to the server
+Table bots {
+  BT_COD int [pk, increment]
+
+  BT_ID int
+}
+
+// Dictionary edited by the user
+Table dictionary {
+  DC_COD int [pk, increment]
+  DC_LANGUAGE int // Dictionary language
+  DC_TITLE string // Window title
+  DC_BODY string // Window body text
+  DC_BTN_DENY string // Text of the deny button
+  DC_BTN_OK string // Text of the ok button
+  DC_BTN_ALL string // Accept all button
+  DC_BTN_SEL string // Accept selected button
+  DC_BTN_SHOW_DETAILS string // View details text
+  DC_BTN_HIDE_DETAILS string // Hide details text
+  DC_BTN_CUSTOMIZE string // Customize button
+  DC_COOKIES_INTRO string // Intro to cookies
+
+  DC_CAT_STRICT_TITLE string // Strict cookies title
+  DC_CAT_STRICT_BODY string // Strict cookies body
+
+  DC_CAT_PREFS_TITLE string // Preferences cookies title
+  DC_CAT_PREFS_BODY string // Preferences cookies title
+
+  DC_CAT_STATS_TITLE string // Statisticts cookies title
+  DC_CAT_STATS_BODY string // Statisticts cookies title
+
+  DC_CAT_MARKE_TITLE string // Marketing cookies title
+  DC_CAT_MARKE_BODY string // Marketing cookies title
+
+  DC_CAT_UNKNOWN_TITLE string // Unknown cookies title
+  DC_CAT_UNKNOWN_BODY string // Unknown cookies title
+
+  DC_COOKIE_SETTINGS string // Cookie settings text
+  DC_CURRENT_STATE string // Current state text
+  DC_CONSENT_DATE string // Consent date text
+  DC_CONSENT_ID string // consent unique id
+  DC_CHANGE_CONSENT string // Change consent text
+  DC_REVOKE_CONSENT string // Revoke consent text
+  DC_SHOW_DETAILS string // Show details text
+  DC_HIDE_DETAILS string // Hide details text
+}
+
+// Dictionary templates for the default values
+Table dictionary_templates {
+  DCT_COD int [pk, increment]
+
+  // Everything in the dictionary but it's pre-filled
+}
+
+// Supported languages
+Table supported_languages{
+  SL_COD int
+  SL_CODE string // Language code en_US for example
+  SL_STRING string // Readable string of the language
+}
+
+// Connects all found cookies to appropriate domain
+Table cookies {
+  CK_COD int
+  CK_DMG_COD int // Domain group cod
+  CK_URL string // URL where the cookie has been found
+  CK_COOKIE int // Name of the cookie in the particular domain
+  CK_DESC string // Description fill by the user if the cookie is unknown
+  CK_SELF_DECLARED bool // If the cookie has been declared by the user
+}
+
+// Describe all cookies
+Table cookies_templates {
+  CKT_COD int
+  CKT_NAME string // Cookie name
+  CKT_PROVIDER string // Cookie provider (google, facebook, etc..)
+  CKT_NATION string // Where the cookie has been set nation
+  CKT_EXAMPLE string // Example of a cookie
+  CKT_DESC string // Description
+  CKT_HTTP_ONLY bool // Http only cookie
+  CKT_SECURE bool // Secure cookie
+  CKT_EXPIRE string // When the cookie will expire
+  CKT_TYPE string // Type of cookie (strict, prefs, etc..)
+  CKT_REGEX bool // If the name is a regex or a exact match
+}
+
+Table reports {
+  RP_COD int
+  RP_FILE string // Path to generated file
+  RP_DATE date // Date of the generation
+  RP_STATUS int // Status
+}
